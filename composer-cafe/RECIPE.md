@@ -7,7 +7,15 @@ description: Build a minimal community site (profiles, recipes, skills) on Next.
 
 A minimal community site that displays user profiles, recipes, and skills. Warm off-white canvas, Geist type, a single accent orange. The catalog is real (curated GitHub skills + their authors) and the in-app file browser renders the live folder contents from GitHub. The primary CTA on every detail page is "Use in Cursor" — Composer Cafe is a discovery surface for installable agent skills, not a download portal.
 
-**Before executing anything, read [`CONVENTIONS.md`](./CONVENTIONS.md).** It defines the working directory, data-authority rules, the pack-content strategy, the CTA pattern, and step-writing principles every subagent must honor.
+## How to run
+
+Use this folder as the working directory. There is nothing to install up front except an agent — phase `steps/1/` walks through Node, Supabase CLI, and project credentials; the runner should execute everything it can in-session and only ask for a separate terminal when something (e.g. browser OAuth) cannot be driven here.
+
+Give the agent:
+
+> Execute this recipe. Read `RECIPE.md` and `CONVENTIONS.md` (including **Execution contract**), then run the phases in `steps/<n>/` in folder-number order. Within each numbered folder, fan out the `.md` files as parallel subagent tasks and wait for all to complete before advancing. Honor every Verify block in full before starting the next file or phase — no deferring checks to “when they matter.” Announce explicitly which phase and step file you are on and when each is done. Stop at any USER PAUSE for explicit confirmation before continuing.
+
+**Before executing anything, read [`CONVENTIONS.md`](./CONVENTIONS.md).** It defines the working directory, data-authority rules, the pack-content strategy, the CTA pattern, step-writing principles, **Execution contract**, phase/parallelism rules, and security expectations for the recipe artifact.
 
 ## What you'll build
 
