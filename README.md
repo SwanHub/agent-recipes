@@ -7,6 +7,10 @@ independent markdown files for the agent to run in parallel. Each markdown file 
 
 To start a recipe, simply point your agent at the folder.
 
-### Write Recipes
+### Write New Recipes
 
 Compile a project into a recipe using the `write-recipe` skill.
+
+### Discover New Recipes
+
+Check out the cookbook (link tbd) for discovering new code recipes.
