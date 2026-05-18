@@ -8,7 +8,7 @@ From `output/`:
 
 1. Confirm `.env.local` has real Supabase values (pause for user if missing).
 2. `supabase db push` — users migration applies.
-3. `npm run supabase:seed` — expect `seeded users: <n>` matching `USER_LOGINS` length.
+3. `npm run supabase:seed` — expect `seeded users: <n>` matching `USERNAMES` length.
 4. `npm run dev`.
 
 ## Verify — USER PAUSE

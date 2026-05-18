@@ -9,8 +9,8 @@ Schema + seed script for the `users` table. Not applied or run here — P4 ships
 **Seed script** — `output/scripts/supabase/seed-catalog.ts`:
 
 - Env + service-role client + GitHub token — hard-fail if missing.
-- `USER_LOGINS` — curated real author logins (~6–10).
-- Fetch GitHub profiles, map into `users` (`slug` = login), truncate `users`, insert, print `seeded users: <n>`.
+- `USERNAMES` — curated GitHub usernames (~6–10).
+- Fetch GitHub profiles, map into `users` (`slug` = username), truncate `users`, insert, print `seeded users: <n>`.
 
 P5/P7 extend this script for skills and recipes.
 

@@ -74,7 +74,7 @@ LLMs need few tokens. Steps name **outcomes**, not implementations.
 **Bad:** 40 lines of verbatim CSS, column-by-column SQL, pixel sizes, exact footer copy.
 
 **Put in `RECIPE.md` / `CONVENTIONS.md`:** aesthetic pitch, slug authority, CTA rules, security, execution behavior.  
-**Put in steps only when downstream depends on it:** route paths, exported fetch function names, seed constant names (`USER_LOGINS`), write-vs-ship boundaries ("not applied until P4").
+**Put in steps only when downstream depends on it:** route paths, exported fetch function names, seed constant names (`USERNAMES`), write-vs-ship boundaries ("not applied until P4").
 
 **Recipe smell**
 

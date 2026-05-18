@@ -8,7 +8,7 @@ Migration + seed extension for skills. Not applied or run here — P6 ships.
 
 **Seed** — extend `seed-catalog.ts`:
 
-- `SKILL_URLS: { url, authorLogin }[]`
+- `SKILL_URLS: { url, authorUsername }[]`
 - Parse folder URLs, read `SKILL.md` frontmatter, insert skills (truncate `skills` → `users`, re-seed users + skills).
 - Print `seeded users: n` and `seeded skills: n`. `RECIPE_URLS` comes in P7.
 

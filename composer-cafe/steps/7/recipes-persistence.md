@@ -8,7 +8,7 @@ Migration + seed extension. Not applied or run here — P8 ships.
 
 **Seed** — extend `seed-catalog.ts`:
 
-- `RECIPE_URLS: { url, submitterLogin }[]` (may be empty)
+- `RECIPE_URLS: { url, submitterUsername }[]` (may be empty)
 - Full re-seed: truncate `recipes` → `skills` → `users`, print all three counts
 
 ## Verify

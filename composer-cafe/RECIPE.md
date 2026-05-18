@@ -35,7 +35,7 @@ Three entities and the routes that surface them:
 - **Database:** Supabase Postgres. Schema in `supabase/migrations/`; one migration per table (`users`, `recipes`, `skills`). Server-only service-role client at `lib/supabase/catalog-db.ts`.
 - **Data flow:** Server Components → fetches in `lib/server/` → Supabase. When env vars are missing the fetches throw a clear server error rather than silently serving fake data.
 - **GitHub file-tree preview:** Detail pages fetch each entity's folder live from the GitHub Contents API at render time (cached ~1h). The DB stores only the `source_*` pointer to the GitHub folder.
-- **Seed:** `scripts/supabase/seed-catalog.ts` reads a small hardcoded list of GitHub skill-folder URLs + author logins, fetches each author's profile from `/users/<login>`, and inserts users + skills (+ recipes when a recipes repo is wired up). No fake or templated content.
+- **Seed:** `scripts/supabase/seed-catalog.ts` reads hardcoded `USERNAMES` + skill/recipe folder URLs, fetches each profile from `/users/<username>`, and inserts users + skills (+ recipes when wired). No fake or templated content.
 
 ## Phases
 
