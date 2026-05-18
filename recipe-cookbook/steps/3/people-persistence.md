@@ -9,10 +9,10 @@ Schema + seed script for the `users` table. Not applied or run here — P4 ships
 **Seed script** — `output/scripts/supabase/seed-catalog.ts`:
 
 - Env + service-role client + GitHub token — hard-fail if missing.
-- `USERNAMES` — curated GitHub usernames (~6–10).
-- Fetch GitHub profiles, map into `users` (`slug` = username), truncate `users`, insert, print `seeded users: <n>`.
+- `USERNAMES` — start with `SwanHub` (see `CONVENTIONS.md`); fetch GitHub profile, map into `users` (`slug` = username).
+- Truncate `users`, insert, print `seeded users: <n>`.
 
-P5/P7 extend this script for skills and recipes.
+P5 extends this script for recipes (discovered from [github.com/SwanHub/agent-recipes/tree/main](https://github.com/SwanHub/agent-recipes/tree/main)).
 
 ## Verify
 

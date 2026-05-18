@@ -8,7 +8,7 @@ To start a recipe, simply point your agent at the folder.
 
 ### Write New Recipes
 
-Compile a project into a recipe using the `write-recipe` skill.
+Compile a project into a recipe using the [`write-recipe`](https://github.com/SwanHub/agent-skills/tree/main/write-recipe) skill from [agent-skills](https://github.com/SwanHub/agent-skills).
 
 ### Discover New Recipes
 

@@ -1,12 +1,12 @@
 # Bootstrap
 
-Walk the user through prereqs interactively, then scaffold the Next.js 16 project at `output/` with all runtime deps Composer Cafe needs.
+Walk the user through prereqs interactively, then scaffold the Next.js 16 project at `output/` with all runtime deps Recipe Cookbook needs.
 
 ## 1. Greet and check prereqs
 
 Open with a brief welcome:
 
-> We're going to build Composer Cafe — a minimal community site for profiles, recipes, and skills. This first step gets your machine ready and scaffolds the project. There are three checkpoints later (after People, after Recipes+Skills, after the landing page) where you'll visually confirm the site looks right before we move on.
+> We're going to build **Recipe Cookbook** — a minimal community site for creator profiles and agent recipes. This first step gets your machine ready and scaffolds the project. There are three checkpoints later (after People, after Recipes, after the landing page) where you'll visually confirm the site looks right before we move on.
 
 Then check, in order. Don't proceed past any failure — work it out with the user.
 
@@ -39,4 +39,3 @@ From `output/`:
 - `node --version` shows 20+, `supabase --version` works, `output/.env.local` has both vars set to real values (not the placeholders).
 - From `output/`, `npm run build` completes with no errors. Pages will be near-empty; the build must succeed.
 - `output/AGENTS.md` exists and warns about Next 16.
-

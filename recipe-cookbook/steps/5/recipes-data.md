@@ -1,10 +1,10 @@
 # Recipes data
 
-Extend catalog files from P5 — `RecipeDatum` and recipe fetches only.
+Types + server fetches.
 
 ## Do
 
-- `RecipeDatum` in `cafe-demo.ts`
+- `GitHubSource` + `RecipeDatum` in `cookbook-demo.ts` — include optional `demoUrl` and `thumbnailUrl` when present in source metadata
 - Recipe reads + install-count increment
 - `fetchCatalogRecipes()`, `fetchRecipeBySlugSegment(slug)`, `fetchRecipesForPersonName(name)`
 

@@ -4,8 +4,8 @@ App pages and API handlers.
 
 ## Do
 
-- `/recipes/all` (empty state OK), `/recipes/[slug]` — compose P5 file-tree UI components
-- On `/profile/[slug]`: `ProfileRecipesSection` + combined install badge (recipes + skills)
+- `/recipes/all` (empty state OK), `/recipes/[slug]` — compose file-tree UI from the recipes-ui step
+- On `/profile/[slug]`: `ProfileRecipesSection` + recipe install badge
 - `GET /api/catalog/recipes`, `GET /api/catalog/recipes/[slug]` — omit if pages pass props only
 - `POST /api/recipes/[slug]/install`
 
