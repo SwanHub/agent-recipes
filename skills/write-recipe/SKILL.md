@@ -43,23 +43,26 @@ Stateful ops (Postgres, APIs, seed) belong in ship, not spread across parallel w
 
 **One vertical per feature** — e.g. People, Skills, Recipes as separate write/ship pairs. Don't lump unrelated entities in one "catalog" phase.
 
-**Within a write phase — parallel tracks** (3 is a sweet spot):
+**Within a write phase — parallel tracks** (four per feature):
 
 
-| Track           | Typical step                  | Touches                                                                          |
-| --------------- | ----------------------------- | -------------------------------------------------------------------------------- |
-| **Persistence** | migration + seed script       | `supabase/migrations/`, `scripts/supabase/`                                      |
-| **Data layer**  | types + fetches/queries       | `lib/cafe-demo.ts`, catalog query/fetch modules                                  |
-| **Surface**     | components, pages, API routes | `components/`, `app/`                                                            |
+| Track           | Step suffix    | Touches                                                         |
+| --------------- | -------------- | --------------------------------------------------------------- |
+| **Persistence** | `*-persistence`| `supabase/migrations/`, `scripts/supabase/` seed extensions      |
+| **Data**        | `*-data`       | types in `cafe-demo.ts`, Supabase reads/writes, `fetch*` in `lib/` |
+| **Routes**      | `*-routes`     | `app/**/page.tsx`, `app/api/**/route.ts`                        |
+| **UI**          | `*-ui`         | `components/**` only                                            |
 
+
+Routes compose UI components and call data fetches. Do not put pages or API handlers in the UI step.
 
 Fan out tracks in parallel; wait for all Verify blocks before the ship phase.
 
 **When to combine steps**
 
-- **Do merge:** types + fetches (same track); migration + seed script (schema and seed stay aligned).
-- **Don't merge:** surface + seed; persistence + UI; steps that would edit the same file in one phase (merge or re-phase instead).
-- **Don't keep a step** whose entire job is one tiny type or one constant — fold it into data layer or persistence.
+- **Do merge:** migration + seed script → `*-persistence`; types + fetches → `*-data`.
+- **Don't merge:** data + routes (same fetch, different layers); routes + UI; persistence + anything in `app/` or `components/`.
+- **Don't keep a step** whose entire job is one tiny type — fold into `*-data`.
 
 **When to split a vertical** — separate write/ship pairs when the feature has its own schema, routes, and human checkpoint (Skills vs Recipes, not one combined catalog phase).
 
