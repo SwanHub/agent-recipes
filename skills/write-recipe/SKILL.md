@@ -1,42 +1,98 @@
 ---
-name: write-recipe
-description: Use this skill to take an existing project, observe how it was built, and compile that into an executable recipe an AI can re-run from a clean slate. A recipe specifies intent and contracts, not exact implementation — steps stay high-level so a future agent can interpret them differently on each run.
----
+
+## name: write-recipe
+description: Use this skill to take an existing project, observe how it was built, and compile that into an executable recipe an AI can re-run from a clean slate.
 
 # write-recipe
 
-A recipe is a build plan an AI executes end-to-end. A good recipe leaves room for the agent to make local decisions; a bad recipe is a step-by-step coding tutorial that breaks when the underlying tools shift.
+A recipe is a build plan an AI executes end-to-end. A good recipe leaves room for local decisions; a bad recipe is a coding tutorial that breaks when tools shift.
 
 ## Purpose
 
-The job: take an existing project, study how it was built, and write the executable recipe an AI would follow to recreate it from nothing.
+Study an existing project and write the recipe that recreates it from nothing.
 
-Output is a directory with `RECIPE.md`, `CONVENTIONS.md`, and a `steps/` tree of phased build instructions. The recipe should produce something recognizably the same project on each run, even if implementation choices differ.
+Output: `RECIPE.md`, `CONVENTIONS.md`, and `steps/<n>/*.md`. No agent-facing `README.md` — optional one-line human stub linking to `RECIPE.md` only.
 
-**Do not rely on a separate `README.md` for the agent.** That duplicates the entrypoint and costs tokens. Humans browsing GitHub may still appreciate a one-line stub README linking to `RECIPE.md`; keep it optional and non-canonical.
+## Documentation layout
 
-## Documentation layout (token-efficient)
 
-Split concerns so the agent reads each class of information **once**, in a predictable order.
+| File             | Holds                                                                                                                               |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `RECIPE.md`      | **What**: pitch, architecture, phase table (folders, gates, USER PAUSE), success criteria, **How to run** paste block.              |
+| `CONVENTIONS.md` | **How**: execution contract, `output/` layout, parallelism, disjoint paths per step, security, product rules that never change per step. |
+| `steps/<n>/*.md` | **Do** + **Verify** per parallel task. Point at conventions; don't restate them.                                                    |
 
-| File | Purpose |
-|------|---------|
-| **`RECIPE.md`** | **What** you are building: short pitch, architecture summary, phase table (which `steps/<n>/` folders, what they deliver, gates like USER PAUSE), success criteria, and a **How to run** block: the exact instruction string to paste for an agent, plus any “nothing to install until step N” note. Optional YAML frontmatter (`name`, `description`) for catalogs/tooling. |
-| **`CONVENTIONS.md`** | **How** to run the recipe successfully **and** shared build contracts: **Execution contract** first (explicit phase/step announcements, never advance while any Verify in scope is open, prefer running commands in-agent over sending the user to a terminal unless unavoidable), then recipe layout (cwd, `output/` vs recipe root, strict phase order, parallel step files, one-owner-per-`output/` path per phase, USER PAUSE behavior, optional `.recipe-state.json`), then product rules the whole tree must honor (data authority, design tokens, API shapes, security posture for the recipe as an artifact — pinned deps, no `curl \| sh`, inert assets, etc.). |
-| **`steps/<n>/*.md`** | Per-task **Do** + **Verify**; link or restate nothing that already lives in `CONVENTIONS.md` unless a step truly needs a one-line reminder. |
 
-When drafting: if text is “how would I behave as the runner,” it belongs in **`CONVENTIONS.md`**. If text is “what is this product and in what order do we ship slices,” it belongs in **`RECIPE.md`**.
+Runner behavior → `CONVENTIONS.md`. Product order and gates → `RECIPE.md`.
 
-## Core principles
+## Phase structure
 
-**Steps describe intent + a contract reference, not the implementation.**
-"Link to the user's profile page" — good. "Call `profileSlugForName(person.name)` and pass the result as the href" — bad. The first survives refactors; the second forces edits in N step files the moment anything underneath changes.
+**Macro rhythm**
 
-**Contracts live in one place.**
-Execution contract, recipe layout (phases, parallelism, `output/`), type shapes, schemas, naming conventions, file-layout rules — put them in a single `CONVENTIONS.md` next to `RECIPE.md`. Every parallel subagent reads it before starting. When something changes, you edit once.
+1. Bootstrap (scaffold, deps)
+2. Shared shell (chrome, cross-cutting libs — no DB ship)
+3. Feature verticals, each: **write → ship**
+4. Compose (landing / integration — after all features shipped)
 
-**The smell: a conceptual change requires N step edits.**
-If updating one architectural decision means touching five step files, the recipe over-specified. Lift the duplicated bits into the conventions file and reference them.
+**Write vs ship**
 
-**Intent + why outranks prescribed how.**
-A step should tell the agent **what** it's building and **why** that matters. The **how** comes from the agent reading the surrounding code, the conventions, and applying judgment. That's the whole point of handing the work to an AI.
+- **Write phase** — migrations (not applied), types, fetches, UI, seed *script* only. Gate: `build` passes.
+- **Ship phase** — one step file: env check → `db push` → seed → dev server → **USER PAUSE** with URLs. Human signs off before the next feature.
+
+Stateful ops (Postgres, APIs, seed) belong in ship, not spread across parallel write steps.
+
+**One vertical per feature** — e.g. People, Skills, Recipes as separate write/ship pairs. Don't lump unrelated entities in one "catalog" phase.
+
+**Within a write phase — parallel tracks** (3 is a sweet spot):
+
+
+| Track           | Typical step                  | Touches                                                                          |
+| --------------- | ----------------------------- | -------------------------------------------------------------------------------- |
+| **Persistence** | migration + seed script       | `supabase/migrations/`, `scripts/supabase/`                                      |
+| **Data layer**  | types + fetches/queries       | `lib/cafe-demo.ts`, catalog query/fetch modules                                  |
+| **Surface**     | components, pages, API routes | `components/`, `app/`                                                            |
+
+
+Fan out tracks in parallel; wait for all Verify blocks before the ship phase.
+
+**When to combine steps**
+
+- **Do merge:** types + fetches (same track); migration + seed script (schema and seed stay aligned).
+- **Don't merge:** surface + seed; persistence + UI; steps that would edit the same file in one phase (merge or re-phase instead).
+- **Don't keep a step** whose entire job is one tiny type or one constant — fold it into data layer or persistence.
+
+**When to split a vertical** — separate write/ship pairs when the feature has its own schema, routes, and human checkpoint (Skills vs Recipes, not one combined catalog phase).
+
+## Step minimalism
+
+LLMs need few tokens. Steps name **outcomes**, not implementations.
+
+**Good:** "Warm minimal shell per `RECIPE.md`; semantic Tailwind tokens in `globals.css`."  
+**Bad:** 40 lines of verbatim CSS, column-by-column SQL, pixel sizes, exact footer copy.
+
+**Put in `RECIPE.md` / `CONVENTIONS.md`:** aesthetic pitch, slug authority, CTA rules, security, execution behavior.  
+**Put in steps only when downstream depends on it:** route paths, exported fetch function names, seed constant names (`USER_LOGINS`), write-vs-ship boundaries ("not applied until P4").
+
+**Recipe smell**
+
+- Verbatim code blocks in steps
+- One conceptual change forces N step edits → lift to `CONVENTIONS.md`
+- A step file that only adds a single type or re-states the migration column list
+- Parallel steps that edit the same `output/` file (fix the phase layout instead)
+
+**Verify**
+
+- Write phases: lean checks (`build`, file exists, script parses)
+- Ship phases: human-visible URLs + **USER PAUSE**
+- Don't defer integration checks to "later" if the step claims the work is done
+
+## Naming
+
+Prefer **fetches** over **loaders** for server-side data-access functions (`fetchPeople`, `catalog-fetches.ts`). "Loader" suggests framework-specific APIs; these are plain async functions that fetch from Supabase.
+
+## Core principles (unchanged)
+
+- **Intent + why** over prescribed how.
+- **Contracts in one place** — edit once in `CONVENTIONS.md`.
+- **Succinct tone** — shortest text that still gates progress.
+

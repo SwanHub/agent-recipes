@@ -11,7 +11,7 @@ Open with a brief welcome:
 Then check, in order. Don't proceed past any failure — work it out with the user.
 
 1. **Node 20+** — verify, install if needed.
-2. **Supabase CLI** — verify it's installed; install if needed (Homebrew on macOS, see https://supabase.com/docs/guides/cli otherwise).
+2. **Supabase CLI** — verify it's installed; install if needed (Homebrew on macOS, see [https://supabase.com/docs/guides/cli](https://supabase.com/docs/guides/cli) otherwise).
 3. **Supabase CLI auth** — `supabase link` requires the CLI to be logged in. Run `supabase projects list` to test; if it errors with "Access token not provided", ask the user to run `supabase login` in a separate terminal (it opens a browser). You can't drive that login flow from inside this session.
 4. **Supabase project + credentials.** Ask the user for the project URL (e.g. `https://abc123.supabase.co`) and the **service-role** key from Settings → API (the long one, not anon). Hold them in memory until `output/.env.local` exists. Derive the project ref from the URL.
 
@@ -39,3 +39,4 @@ From `output/`:
 - `node --version` shows 20+, `supabase --version` works, `output/.env.local` has both vars set to real values (not the placeholders).
 - From `output/`, `npm run build` completes with no errors. Pages will be near-empty; the build must succeed.
 - `output/AGENTS.md` exists and warns about Next 16.
+

@@ -1,12 +1,12 @@
 # Formatting helpers
 
-Two tiny utilities used across previews and detail pages.
+Display utilities for cards and profile links.
 
 ## Do
 
-1. Write `output/lib/format-downloads.ts` exporting `formatDownloads(n: number): string` — human-readable counts: `980` → `"980"`, `1_960` → `"1.96K"`, `40_200` → `"40.2K"`, `1_300_000` → `"1.3M"`. One decimal place; trim a trailing `.0`.
-2. Write `output/lib/format-website-label.ts` exporting `formatWebsiteLabel(url: string): string` — strip protocol and trailing slash for display: `"https://www.example.com/foo/"` → `"example.com/foo"`. Drop a leading `www.`.
+1. `output/lib/format-downloads.ts` — export `formatDownloads(n)` for compact counts (skill/recipe preview cards in P5/P7).
+2. `output/lib/format-website-label.ts` — export `formatWebsiteLabel(url)` for readable website link text on profiles.
 
 ## Verify
 
-- Both files compile (`npm run build` from `output/` still passes).
+- `cd output && npm run build` succeeds.
