@@ -4,13 +4,13 @@ Site shell every page shares: theme tokens, fonts, header, footer, brand mark, p
 
 ## Do
 
-1. `output/lib/constants.ts` — shared layout classes (outer shell + inner content column) and a GitHub URL for the footer (Recipe Cookbook / agent-recipes repo).
+1. `output/lib/constants.ts` — shared layout classes (outer shell + inner content column) and a GitHub URL for the footer (Agent Recipes Website / agent-recipes repo).
 2. Copy `assets/CUBE_2D_LIGHT.svg` → `output/public/`.
-3. `output/components/recipe-cookbook-mark.tsx` — brand mark from that asset.
+3. `output/components/agent-recipes-website-mark.tsx` — brand mark from that asset.
 4. `output/components/site-header.tsx` — responsive header with brand, nav to Community (`/profiles/all`), Recipes (`/recipes/all`), Sign in (`/join`). No skills nav.
-5. `output/components/site-footer.tsx` — footer crediting Recipe Cookbook + repo link.
+5. `output/components/site-footer.tsx` — footer crediting Agent Recipes Website + repo link.
 6. `output/app/globals.css` — Tailwind v4 semantic color tokens (`background`, `foreground`, `muted`, `accent`, `border`, `footer-bg`, etc.) so components use utilities, not hard-coded hex.
-7. `output/app/layout.tsx` — Geist fonts, site metadata titled **Recipe Cookbook**, header + footer wrapping children.
+7. `output/app/layout.tsx` — Geist fonts, site metadata titled **Agent Recipes Website**, header + footer wrapping children.
 8. `output/app/page.tsx` — temporary home placeholder (replaced in P7).
 
 ## Verify

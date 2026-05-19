@@ -32,7 +32,7 @@ If you must hand off, be specific: what exact command or UI action, what success
 
 The project lives in `output/`. All CLI commands (`npm`, `supabase`, `tsx`) for the app run from there. When invoking from outside, prefix with `cd output && …`.
 
-Brand the app **Recipe Cookbook** in metadata, header, and footer copy. Component filenames use the `recipe-cookbook-` prefix (e.g. `recipe-cookbook-mark.tsx`). Shared catalog types live in `lib/cookbook-demo.ts`.
+Brand the app **Agent Recipes Website** in metadata, header, and footer copy. Component filenames use the `agent-recipes-website-` prefix (e.g. `agent-recipes-website-mark.tsx`). Shared catalog types live in `lib/cookbook-demo.ts`.
 
 ## Data authority
 
@@ -54,14 +54,7 @@ When seeding or displaying a recipe, read `RECIPE.md` frontmatter from its GitHu
 - **Scope:** people + recipes only. No skills routes, tables, or nav items.
 - **Primary CTA:** recipe detail pages offer **Use in Cursor** (modal with copyable install path/snippet). Install count increments in Supabase on confirm.
 - **Featured content:** home and listings derive featured recipes from live data (e.g. first N by title) — no hardcoded slug lists in step files.
-- **Home narrative:** the landing page sells what recipes *enable* — show thumbnails and optional demo links so visitors see end results, not just file trees.
 
 ## Security
 
-Recipes are executable plans. The format should stay **auditable**: a human reading the files knows what will run.
-
-- **No bash scripts as the primary delivery.** Small checks live in Verify text; heavier checks are TypeScript under `scripts/`, run with `npx tsx scripts/<name>.ts`. Do not `chmod +x` recipe-owned scripts.
-- **Pinned versions** on every `npm install` (explicit package@version).
-- **No remote piping:** no `curl … | sh`, no fetching and eval’ing remote code as part of the recipe.
-- **No silent globals:** anything that mutates the host outside the project is called out in an early prereq phase.
-- **Inert `assets/`:** files are copied into `output/` verbatim; the runner does not execute them as scripts.
+Recipes are executable plans. The format should stay **auditable**: a human reading the files knows what will run. If a step file includes sensitive information, give the user full context about what they are doing and assess the risk yourself as the guiding agent. When fetching remote code, evaluate and relay its function to the user before running it.

@@ -1,15 +1,17 @@
 ---
 
-name: recipe-cookbook
+name: agent-recipes-website
 description: Build a community site for sharing Agent Recipes and creator profiles. Deploy it to the web on Vercel.
 
-# Recipe Cookbook
+# Agent Recipes Website
 
 A minimal community site for discovering agent recipes and the people who publish them. Built on Next.js, Supabase, and Vercel. Warm off-white canvas, Geist type, a single accent orange. The catalog is real — curated recipe folders from GitHub and their authors — and recipe detail pages render the live folder contents from GitHub. The primary CTA on every recipe detail page is **Use in Cursor**; optional **demo url** frontmatter links to a deployed example when the author provides one.
 
 ## How to run
 
-Use this folder as the working directory. There is nothing to install up front except an agent — phase `steps/1/` walks through Node, Supabase CLI, and project credentials; the runner should execute everything it can in-session and only ask for a separate terminal when something (e.g. browser OAuth) cannot be driven here.
+Use this folder as the working directory. **Assume a cold start:** the user may not have Node, the Supabase CLI, a Supabase cloud project, a GitHub token, or `output/` yet. `steps/1/bootstrap.md` verifies and installs tooling, guides account setup when needed, and scaffolds the app — do not skip prereq checks because a typical dev machine might already be configured.
+
+There is nothing to install up front except an agent; the runner should execute everything it can in-session and only ask for a separate terminal when something (e.g. browser OAuth) cannot be driven here.
 
 Give the agent:
 
@@ -32,10 +34,13 @@ Each seeded recipe folder includes a `RECIPE.md` with YAML frontmatter. The seed
 
 ```yaml
 ---
+
 name: my-recipe
 description: One-line pitch.
-demo url: https://example.com   # optional — live deployed output
+demo url: https://example.com # optional — live deployed output
+
 ---
+
 ```
 
 When `demo url` is present, the site surfaces a link to the deployed example on the recipe card and detail page.
@@ -74,3 +79,4 @@ Vertically sliced by feature: People (P3–P4), then Recipes (P5–P6), then Hom
 - "Use in Cursor" pops a modal with a copyable install snippet; clicking it bumps the install counter persisted in Supabase.
 - The landing page highlights what recipes enable, using recipe thumbnails where available.
 - The user has visually confirmed the landing page, a profile, and a recipe detail.
+```

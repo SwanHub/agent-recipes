@@ -16,7 +16,7 @@ From `output/`:
 
 > Recipes are live. Confirm:
 >
-> - `/recipes/all` — grid with at least `recipe-cookbook` when the repo is seeded.
+> - `/recipes/all` — grid with at least `agent-recipes-website` when the repo is seeded.
 > - `/recipes/<slug>` — file tree, thumbnail or placeholder, demo link if frontmatter has `demo url`, install modal.
 > - `/profile/swanhub` — recipes section + install badge.
 >
