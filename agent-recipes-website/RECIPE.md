@@ -2,7 +2,7 @@
 
 name: agent-recipes-website
 description: Build a community site for sharing Agent Recipes and creator profiles. Deploy it to the web on Vercel.
-build_duration: 10mins
+build_duration: 5-10mins
 
 # Agent Recipes Website
 
