@@ -12,16 +12,22 @@ A minimal community site for discovering agent recipes and the people who publis
 
 A recipe is a sequence of **steps** (folders under `steps/`); each step contains one or more **tasks** (the `*.md` files inside). After reading this file end-to-end, your **first action is to run `steps/0/`**, then `steps/1/`, and so on in numeric order. No skipping, no reordering.
 
+**A recipe is a guided conversation, not a turnkey script.** When the user invokes you with "execute this recipe," "make this," "run it," "build it," or similar, that phrase is permission to **begin** — meaning start at **step 0** (welcome and orientation), not skip ahead to step 1. The user wants to be welcomed and oriented before anything builds. Every STOP gate — including step 0's — is a hard halt independent of the original invocation. **Do not collapse step 0 into step 1.**
+
 - **Within a step, run all tasks in parallel as subagents** and wait until **every** task verifies before opening the next step. Tasks in a step touch disjoint paths under `output/`; if two tasks would touch the same file, merge them or split across steps.
 - **Each task has a Do block and a Verify block.** Don't move on until every Verify in the step passes.
-- `**.recipe-state.json` is required, not advisory.** At every step boundary, update it: `{ "completed_steps": [...], "current_step": N }` at the recipe root (already gitignored). Before opening step N, read it and confirm step N−1 is in `completed_steps`. This is the canonical "where am I" artifact.
+- **`.recipe-state.json` is required, not advisory.** At every step boundary, update it: `{ "completed_steps": [...], "current_step": N }` at the recipe root (already gitignored). Before opening step N, read it and confirm step N−1 is in `completed_steps`. This is the canonical "where am I" artifact.
 - **Announce step transitions in a dedicated message** before opening the next step folder — its own message, not buried in another response:
-  > ---
-  >
-  > ## **Step **** done** — .
-  > **Opening step <N+1>:** .
+
+  ```
+  ---
+  **Step <N> done** — <one-line summary of what shipped>.
+  **Opening step <N+1>:** <next step name>.
+  ---
+  ```
+
 - **STOP gates** — dedicated `## STOP — … WITH USER` sections in step tasks (not inline bullets). Plowing past a STOP gate is the worst failure mode of a recipe.
-  - **STOP — APPROVE** (step 0): after welcome + state init, send the approval prompt and **stop**. Call zero tools until the user explicitly approves starting the build.
+  - **STOP — APPROVE** (step 0): after welcome + state init, send the welcome prompt and **stop**. Call zero tools until the user explicitly approves starting the build. The user's original invocation is NOT this approval — that was permission to begin step 0, not to skip past it.
   - **STOP — REVIEW** (steps 4, 6, 7): after the step's tasks all verify, send the user-facing review prompt and **stop**. Call zero tools until the user replies with explicit affirmative approval ("looks good" / "yes" / "approved" / "proceed"). Silence, vague replies, and a neutral "ok" do not qualify.
 - **Be explicit about progress.** The user must always know which step and which task you are on. No silent plowing through.
 - **Drive in-session.** Run commands yourself; only hand off for sensitive credentials or browser flows you can't drive. Be specific about what the user needs to do and what you'll resume with.
@@ -76,4 +82,3 @@ People (steps 3–4), then Recipes (steps 5–6), then Home (step 7). Each featu
 - "Use in Cursor" pops a modal with a copyable install snippet; clicking it bumps the install counter persisted in Supabase.
 - The landing page highlights what recipes enable, using recipe thumbnails where available.
 - The user has visually confirmed the landing page, a profile, and a recipe detail.
-
