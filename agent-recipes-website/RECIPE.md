@@ -14,13 +14,15 @@ A recipe is a sequence of **steps** (folders under `steps/`); each step contains
 
 - **Within a step, run all tasks in parallel as subagents** and wait until **every** task verifies before opening the next step. Tasks in a step touch disjoint paths under `output/`; if two tasks would touch the same file, merge them or split across steps.
 - **Each task has a Do block and a Verify block.** Don't move on until every Verify in the step passes.
-- **`.recipe-state.json` is required, not advisory.** At every step boundary, update it: `{ "completed_steps": [...], "current_step": N }` at the recipe root (already gitignored). Before opening step N, read it and confirm step N−1 is in `completed_steps`. This is the canonical "where am I" artifact.
+- `**.recipe-state.json` is required, not advisory.** At every step boundary, update it: `{ "completed_steps": [...], "current_step": N }` at the recipe root (already gitignored). Before opening step N, read it and confirm step N−1 is in `completed_steps`. This is the canonical "where am I" artifact.
 - **Announce step transitions in a dedicated message** before opening the next step folder — its own message, not buried in another response:
   > ---
-  > **Step <N> done** — <one-line summary of what shipped>.
-  > **Opening step <N+1>:** <next step name>.
-  > ---
-- **STOP — REVIEW gates** (steps 4, 6, 7): after the step's tasks all verify, send the user-facing review prompt and **stop**. Call zero tools — not `Read`, not `Bash`, not a subagent — until the user replies with explicit affirmative approval ("looks good" / "yes" / "approved" / "proceed"). Silence, vague replies, and a neutral "ok" do not qualify. Plowing past a STOP gate is the worst failure mode of a recipe.
+  >
+  > ## **Step **** done** — .
+  > **Opening step <N+1>:** .
+- **STOP gates** — dedicated `## STOP — … WITH USER` sections in step tasks (not inline bullets). Plowing past a STOP gate is the worst failure mode of a recipe.
+  - **STOP — APPROVE** (step 0): after welcome + state init, send the approval prompt and **stop**. Call zero tools until the user explicitly approves starting the build.
+  - **STOP — REVIEW** (steps 4, 6, 7): after the step's tasks all verify, send the user-facing review prompt and **stop**. Call zero tools until the user replies with explicit affirmative approval ("looks good" / "yes" / "approved" / "proceed"). Silence, vague replies, and a neutral "ok" do not qualify.
 - **Be explicit about progress.** The user must always know which step and which task you are on. No silent plowing through.
 - **Drive in-session.** Run commands yourself; only hand off for sensitive credentials or browser flows you can't drive. Be specific about what the user needs to do and what you'll resume with.
 - **Stay scoped.** Everything you need is in this recipe folder. Don't scan adjacent repos.
@@ -55,15 +57,15 @@ People (steps 3–4), then Recipes (steps 5–6), then Home (step 7). Each featu
 
 
 | #   | Folder     | What it produces                                                                   | Gate              |
-| --- | ---------- | ------------------------------------------------------------------------------------ | ----------------- |
-| 0   | `steps/0/` | Welcome — greet the user, initialize `.recipe-state.json`                            | message sent      |
-| 1   | `steps/1/` | Bootstrap — scaffold, deps, AGENTS.md                                                | build passes      |
-| 2   | `steps/2/` | Shared shell — chrome, stubs, Supabase client, helpers                               | chrome renders    |
-| 3   | `steps/3/` | People **(write)** — persistence, data, routes, UI (4 parallel)                     | files compile     |
-| 4   | `steps/4/` | People **(ship)** — migrate, seed users, verify profiles                              | **STOP — REVIEW** |
-| 5   | `steps/5/` | Recipes **(write)** — persistence, data, routes, UI (4 parallel)                    | files compile     |
+| --- | ---------- | ---------------------------------------------------------------------------------- | ----------------- |
+| 0   | `steps/0/` | Welcome — greet the user, initialize `.recipe-state.json`                          | **STOP — APPROVE** |
+| 1   | `steps/1/` | Bootstrap — scaffold, deps, AGENTS.md                                              | build passes      |
+| 2   | `steps/2/` | Shared shell — chrome, stubs, Supabase client, helpers                             | chrome renders    |
+| 3   | `steps/3/` | People **(write)** — persistence, data, routes, UI (4 parallel)                    | files compile     |
+| 4   | `steps/4/` | People **(ship)** — migrate, seed users, verify profiles                           | **STOP — REVIEW** |
+| 5   | `steps/5/` | Recipes **(write)** — persistence, data, routes, UI (4 parallel)                   | files compile     |
 | 6   | `steps/6/` | Recipes **(ship)** — migrate, re-seed users + recipes, verify `/recipes` + profile | **STOP — REVIEW** |
-| 7   | `steps/7/` | Home — landing showcases recipes + community                                        | **STOP — REVIEW** |
+| 7   | `steps/7/` | Home — landing showcases recipes + community                                       | **STOP — REVIEW** |
 
 
 ## Success criteria
@@ -74,3 +76,4 @@ People (steps 3–4), then Recipes (steps 5–6), then Home (step 7). Each featu
 - "Use in Cursor" pops a modal with a copyable install snippet; clicking it bumps the install counter persisted in Supabase.
 - The landing page highlights what recipes enable, using recipe thumbnails where available.
 - The user has visually confirmed the landing page, a profile, and a recipe detail.
+
