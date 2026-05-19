@@ -4,7 +4,7 @@ Schema + seed script for the `users` table. Not applied or run here — P4 ships
 
 ## Do
 
-**Migration** — `output/supabase/migrations/<YYYYMMDDHHMMSS>_create_users.sql`: identity, unique `slug` (the user's GitHub username — authoritative URL handle), display fields, optional bio/links, `joined_at`, timestamps, sensible indexes.
+**Migration** — `output/supabase/migrations/<YYYYMMDDHHMMSS>_create_users.sql`: identity, unique `slug` (the user's GitHub username — authoritative URL handle), display fields, optional bio/links, `joined_at`, timestamps, sensible indexes. **Enable RLS** at the end of the migration. No policies needed — every read/write goes through the server's service-role client.
 
 **Seed script** — `output/scripts/supabase/seed.ts`:
 

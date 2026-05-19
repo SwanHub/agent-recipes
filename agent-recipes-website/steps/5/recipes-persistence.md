@@ -4,7 +4,7 @@ Migration + seed extension. Not applied or run here — P6 ships.
 
 ## Do
 
-**Migration** — `output/supabase/migrations/<fresh-utc-ts>_create_recipes.sql` (after users migration): slug, title, summary, install_count, optional `demo_url`, optional `thumbnail_url`, author FK → users, GitHub source columns, timestamps.
+**Migration** — `output/supabase/migrations/<fresh-utc-ts>_create_recipes.sql` (after users migration): slug, title, summary, install_count, optional `demo_url`, optional `thumbnail_url`, author FK → users, GitHub source columns, timestamps. **Enable RLS** at the end of the migration. No policies needed — every read/write goes through the server's service-role client.
 
 **Seed** — extend `seed.ts`:
 
