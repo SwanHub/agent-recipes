@@ -6,7 +6,7 @@ build_duration: 10mins
 
 # Agent Recipes Website
 
-A minimal community site for discovering agent recipes and the people who publish them. The catalog is real — curated recipe folders from GitHub and their authors — and recipe detail pages render the live folder contents from GitHub.
+A minimal community site for discovering agent recipes and the people who publish them. The data is real — users and recipes come from live GitHub sources — and recipe detail pages render the folder contents from GitHub at request time.
 
 ## Kickoff (your first user-facing output)
 
@@ -71,8 +71,8 @@ Plowing past a STOP gate is the worst failure mode of a recipe. **When in doubt,
 
 - **App lives in `output/`** — all CLI commands (`npm`, `supabase`, `tsx`) run from there. When invoking from outside, prefix with `cd output && …`.
 - **Component filename prefix:** `agent-recipes-website-` (e.g. `agent-recipes-website-mark.tsx`).
-- **Shared catalog types:** `lib/cookbook-demo.ts`.
-- **Real catalog only** — users and recipes come from GitHub sources defined in the seed script. No lorem ipsum, no invented slugs.
+- **Shared types:** `lib/types.ts`.
+- **Real data only** — users and recipes come from GitHub sources defined in the seed script. No lorem ipsum, no invented slugs.
 - **Slug authority** — a user's `slug` is their GitHub username. A recipe's `slug` comes from the folder name (or `name` in `RECIPE.md` frontmatter when present).
 
 ## Security

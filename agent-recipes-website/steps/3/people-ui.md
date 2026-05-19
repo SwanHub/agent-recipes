@@ -6,7 +6,7 @@ Components only.
 
 - `preview-avatar.tsx` — circular avatar with initials fallback
 - `user-profile-preview.tsx` — card linking to `/profile/${person.slug}` with contribution summary
-- `all-people-catalog.tsx` — client search over name + bio, responsive grid
+- `all-people-list.tsx` — client search over name + bio, responsive grid
 
 ## Verify
 

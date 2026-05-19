@@ -6,9 +6,9 @@ Migration + seed extension. Not applied or run here — P6 ships.
 
 **Migration** — `output/supabase/migrations/<fresh-utc-ts>_create_recipes.sql` (after users migration): slug, title, summary, install_count, optional `demo_url`, optional `thumbnail_url`, author FK → users, GitHub source columns, timestamps.
 
-**Seed** — extend `seed-catalog.ts`:
+**Seed** — extend `seed.ts`:
 
-- Discover recipe folders from [github.com/SwanHub/agent-recipes/tree/main](https://github.com/SwanHub/agent-recipes/tree/main) (top-level dirs with `RECIPE.md`). This is the catalog source of truth.
+- Discover recipe folders from [github.com/SwanHub/agent-recipes/tree/main](https://github.com/SwanHub/agent-recipes/tree/main) (top-level dirs with `RECIPE.md`). This is the source of truth for recipes.
 - For each folder, read the `RECIPE.md` frontmatter contract:
   - **Required:** `name`, `description` (or equivalent summary fields).
   - **Optional:** `demo url` — HTTPS link to a deployed build; persist as `demo_url` for cards/detail to surface.

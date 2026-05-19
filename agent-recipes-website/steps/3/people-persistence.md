@@ -6,7 +6,7 @@ Schema + seed script for the `users` table. Not applied or run here — P4 ships
 
 **Migration** — `output/supabase/migrations/<YYYYMMDDHHMMSS>_create_users.sql`: identity, unique `slug` (the user's GitHub username — authoritative URL handle), display fields, optional bio/links, `joined_at`, timestamps, sensible indexes.
 
-**Seed script** — `output/scripts/supabase/seed-catalog.ts`:
+**Seed script** — `output/scripts/supabase/seed.ts`:
 
 - Env + service-role client + GitHub token — hard-fail if missing.
 - `USERNAMES` — start with **`SwanHub`** ([github.com/SwanHub](https://github.com/SwanHub)), the first seeded user; fetch GitHub profile, map into `users` (`slug` = username).

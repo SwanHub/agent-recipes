@@ -24,7 +24,7 @@ All remaining shell commands run **from `output/`** (`cd output && …` if invok
 
 - Install pinned runtime deps the recipe needs: `@supabase/supabase-js@2.76.1`, `lucide-react@1.14.0`, `react-markdown@10.1.0`, `remark-gfm@4.0.1`, `server-only@0.0.1`, plus `@next/env@16.2.4` for the seed script.
 - Install pinned dev deps: `tsx@4.21.0`.
-- Add `"supabase:seed": "tsx scripts/supabase/seed-catalog.ts"` to `package.json` scripts.
+- Add `"supabase:seed": "tsx scripts/supabase/seed.ts"` to `package.json` scripts.
 - Copy `assets/AGENTS.md.txt` → `output/AGENTS.md`. Create `output/CLAUDE.md` containing the single line `@AGENTS.md`.
 - Copy `assets/.env.example` → `output/.env.example`. Append `.env*` and `/supabase/artifacts/` to `output/.gitignore`.
 
