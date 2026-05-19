@@ -5,19 +5,15 @@ description: Build a community site for sharing Agent Recipes and creator profil
 
 # Agent Recipes Website
 
-A minimal community site for discovering agent recipes and the people who publish them. Built on Next.js, Supabase, and Vercel. Warm off-white canvas, Geist type, a single accent orange. The catalog is real — curated recipe folders from GitHub and their authors — and recipe detail pages render the live folder contents from GitHub. The primary CTA on every recipe detail page is **Use in Cursor**; optional **demo url** frontmatter links to a deployed example when the author provides one.
+A minimal community site for discovering agent recipes and the people who publish them. The catalog is real — curated recipe folders from GitHub and their authors — and recipe detail pages render the live folder contents from GitHub.
 
-## How to run
+## How to execute this recipe
 
-Use this folder as the working directory. **Assume a cold start:** the user may not have Node, the Supabase CLI, a Supabase cloud project, a GitHub token, or `output/` yet. `steps/1/bootstrap.md` verifies and installs tooling, guides account setup when needed, and scaffolds the app — do not skip prereq checks because a typical dev machine might already be configured.
-
-There is nothing to install up front except an agent; the runner should execute everything it can in-session and only ask for a separate terminal when something (e.g. browser OAuth) cannot be driven here.
-
-Give the agent:
-
-> Execute this recipe. Read `RECIPE.md` and `CONVENTIONS.md` (including **Execution contract**), then run the phases in `steps/<n>/` in folder-number order. Within each numbered folder, fan out the `.md` files as parallel subagent tasks and wait for all to complete before advancing. Honor every Verify block in full before starting the next file or phase — no deferring checks to “when they matter.” Announce explicitly which phase and step file you are on and when each is done. Stop at any USER PAUSE for explicit confirmation before continuing.
-
-**Before executing anything, read `[CONVENTIONS.md](./CONVENTIONS.md)`.** It defines the working directory, data-authority rules, the CTA pattern, catalog metadata (including optional `demo url`), step-writing principles, **Execution contract**, phase/parallelism rules, and security expectations for the recipe artifact.
+1. Read **[CONVENTIONS.md](./CONVENTIONS.md)** in full before touching anything. It defines the working directory, data-authority rules, the execution contract, phase/parallelism rules, and security expectations.
+2. Run `steps/` in numeric order, starting at `steps/1/`. Do not skip or reorder.
+3. Within each phase, fan the `*.md` files out as parallel subagent tasks and wait until **all** verify before opening the next phase.
+4. Drive everything in-session. Only hand off to the user when something cannot be driven here (browser OAuth, secrets) or at a **USER PAUSE** checkpoint.
+5. Announce the current step and file as you go — never silently advance.
 
 ## What you'll build
 
@@ -25,35 +21,10 @@ Two entities and the routes that surface them:
 
 - **Users** — community profiles (`/profiles/all`, `/profile/[slug]`).
 - **Recipes** — guided build plans with a file-tree browser on the detail page (`/recipes/all`, `/recipes/[slug]`).
-- **Landing** at `/` — hero and featured recipes that show what great recipes make possible (thumbnails from each recipe’s `assets/recipe-thumbnail.png` when present), plus a community grid.
+- **Landing** at `/` — hero, featured recipes, community grid.
 - **Stubs** at `/join` and a custom 404.
 
-## Catalog recipe metadata
-
-Each seeded recipe folder includes a `RECIPE.md` with YAML frontmatter. The seed script reads at least `name` and `description`. Authors may also set:
-
-```yaml
----
-
-name: my-recipe
-description: One-line pitch.
-demo url: https://example.com # optional — live deployed output
-
----
-
-```
-
-When `demo url` is present, the site surfaces a link to the deployed example on the recipe card and detail page.
-
-## Architecture
-
-- **Framework:** Next.js 16 (App Router), React 19, TypeScript.
-- **Styling:** Tailwind v4 with CSS-variable design tokens; Geist + Geist Mono via `next/font/google`.
-- **Database:** Supabase Postgres. Schema in `supabase/migrations/`; one migration per table (`users`, `recipes`). Server-only service-role client at `lib/supabase/catalog-db.ts`.
-- **Data flow:** Server Components → fetches in `lib/server/` → Supabase. When env vars are missing the fetches throw a clear server error rather than silently serving fake data.
-- **GitHub file-tree preview:** Recipe detail pages fetch each folder live from the GitHub Contents API at render time (cached ~1h). The DB stores only the `source_*` pointer to the GitHub folder.
-- **Thumbnails:** For cards and the landing page, prefer `assets/recipe-thumbnail.png` in the recipe repo (GitHub raw URL). Fall back to a neutral placeholder when missing.
-- **Seed:** `scripts/supabase/seed-catalog.ts` seeds `SwanHub` as the first user, discovers recipe folders from [github.com/SwanHub/agent-recipes](https://github.com/SwanHub/agent-recipes/tree/main), parses each `RECIPE.md`, and inserts users + recipes. No fake or templated content.
+**Stack:** Next.js 16 (App Router) + React 19 + TypeScript + Tailwind v4 + Supabase Postgres, deployed on Vercel.
 
 ## Phases
 
@@ -79,4 +50,3 @@ Vertically sliced by feature: People (P3–P4), then Recipes (P5–P6), then Hom
 - "Use in Cursor" pops a modal with a copyable install snippet; clicking it bumps the install counter persisted in Supabase.
 - The landing page highlights what recipes enable, using recipe thumbnails where available.
 - The user has visually confirmed the landing page, a profile, and a recipe detail.
-```
