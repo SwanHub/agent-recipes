@@ -2,6 +2,7 @@
 
 name: agent-recipes-website
 description: Build a community site for sharing Agent Recipes and creator profiles. Deploy it to the web on Vercel.
+build_duration: 10mins
 
 # Agent Recipes Website
 
@@ -22,7 +23,6 @@ Do not read files, run commands, or spawn subagents before sending this. The use
 - **Within a step:** run **every** `*.md` in that folder; by default fan them out as parallel subagent tasks and wait until **all** are verified before opening the next `steps/<n>/`.
 - **Disjoint paths per parallel step:** each `*.md` in a phase should touch different files under `output/`. If two steps need the same file, merge them into one step or split across phases.
 - **Do / Verify:** each step file starts with a **Do** block and ends with a **Verify** block. Prefer human-visible checks where it matters.
-- **USER PAUSE:** when a Verify block says **USER PAUSE**, stop, show what was built, and continue only after the human explicitly approves.
 - **Resume state:** `.recipe-state.json` at the recipe root (gitignored) may record current phase and completed step filenames.
 
 ### Explicit progress
@@ -44,6 +44,28 @@ If you must hand off, be specific: what exact command or UI action, what success
 ### Isolated output 
 
 Everything you need to complete the recipe is in this repo. Do not scan adjacent repos for context.
+
+### Step transitions
+
+After **every** step (not just the ones with review gates), make the boundary visible to the user. Before opening the next step folder, send a short transition message — its own message, not buried in another response:
+
+> ---
+> **Step <N> done** — <one-line summary of what shipped>.
+> **Opening step <N+1>:** <next step name>.
+> ---
+
+The user should never have to ask "where are we?".
+
+### STOP — REVIEW WITH USER (hard halt)
+
+Some steps end at a **STOP — REVIEW WITH USER** gate (this recipe: steps 4, 6, 7). At such a gate, you must:
+
+1. Send the step's user-facing review prompt verbatim (or close to it).
+2. **Stop all work.** Call **zero tools** — not `Read`, not `Bash`, not a subagent, not the next step folder — until the user replies. Treat your tools as disabled.
+3. **Wait for explicit affirmative approval.** "Looks good" / "yes" / "approved" / "proceed" all qualify. Silence does not. Vague replies do not. A neutral acknowledgement like "ok" does not.
+4. If they flag issues, fix in place and re-ask. If they approve, send the next step's transition message and continue.
+
+Plowing past a STOP gate is the worst failure mode of a recipe. **When in doubt, stop.**
 
 ## Project conventions
 
@@ -70,7 +92,7 @@ Two entities and the routes that surface them:
 
 ## Phases
 
-Vertically sliced by feature: People (P3–P4), then Recipes (P5–P6), then Home (P7). Each feature follows **write → ship**; ship phases are a single ops step plus **USER PAUSE**.
+Vertically sliced by feature: People (P3–P4), then Recipes (P5–P6), then Home (P7). Each feature follows **write → ship**; ship phases are a single ops step plus **STOP — REVIEW**.
 
 
 | #   | Folder     | What it produces                                                                   | Gate           |
@@ -78,10 +100,10 @@ Vertically sliced by feature: People (P3–P4), then Recipes (P5–P6), then Hom
 | 1   | `steps/1/` | Bootstrap — scaffold, deps, AGENTS.md                                                | build passes   |
 | 2   | `steps/2/` | Shared shell — chrome, stubs, Supabase client, helpers                               | chrome renders |
 | 3   | `steps/3/` | People **(write)** — persistence, data, routes, UI (4 parallel)                     | files compile  |
-| 4   | `steps/4/` | People **(ship)** — migrate, seed users, verify profiles                              | **USER PAUSE** |
+| 4   | `steps/4/` | People **(ship)** — migrate, seed users, verify profiles                              | **STOP — REVIEW** |
 | 5   | `steps/5/` | Recipes **(write)** — persistence, data, routes, UI (4 parallel)                    | files compile  |
-| 6   | `steps/6/` | Recipes **(ship)** — migrate, re-seed users + recipes, verify `/recipes` + profile | **USER PAUSE** |
-| 7   | `steps/7/` | Home — landing showcases recipes + community                                        | **USER PAUSE** |
+| 6   | `steps/6/` | Recipes **(ship)** — migrate, re-seed users + recipes, verify `/recipes` + profile | **STOP — REVIEW** |
+| 7   | `steps/7/` | Home — landing showcases recipes + community                                        | **STOP — REVIEW** |
 
 
 ## Success criteria

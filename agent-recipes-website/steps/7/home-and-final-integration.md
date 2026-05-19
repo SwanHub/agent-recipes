@@ -13,11 +13,13 @@ Landing page composes live people and recipes. Lead with what recipes make possi
   4. **Join** CTA.
 - No skills section or nav remnants.
 
-## Verify — USER PAUSE
+## STOP — REVIEW WITH USER
+
+Send this message to the user, then **stop**. Call **zero tools** until they sign off — this is the final gate of the recipe.
 
 > Final walkthrough: `/` (hero + recipe thumbnails/demos), `/recipes/all`, `/recipes/agent-recipes-website` (or another seeded slug), `/profiles/all` → `/profile/swanhub`, `/join`, a 404. Sign off when ready.
 
-**Wait for explicit approval.** Recipe complete.
+Wait for explicit approval. "Looks good" / "yes" / "approved" / "ship it" all qualify; silence and vague replies do not. The recipe is complete only when they sign off; if they flag issues, fix in place and re-ask.
 
 ## Done
 

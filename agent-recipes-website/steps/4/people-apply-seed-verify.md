@@ -11,8 +11,10 @@ From `output/`:
 3. `npm run supabase:seed` — expect `seeded users: <n>` matching `USERNAMES` length (includes SwanHub).
 4. `npm run dev`.
 
-## Verify — USER PAUSE
+## STOP — REVIEW WITH USER
+
+Send this message to the user, then **stop**. Call **zero tools** — no `Read`, no `Bash`, no subagents, no opening of `steps/5/` — until they reply.
 
 > People is live. Check `/profiles/all` (search + grid) and `/profile/swanhub` (avatar, bio, links). Recipes section comes in P6 — ignore for now. Layout and typography OK?
 
-**Wait for explicit approval before Phase 5.** Fix issues in place and re-confirm if needed.
+Wait for explicit approval before Phase 5. "Looks good" / "yes" / "approved" / "proceed" all qualify; silence and vague replies do not. If they flag issues, fix in place and re-ask.

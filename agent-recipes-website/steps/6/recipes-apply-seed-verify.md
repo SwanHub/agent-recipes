@@ -12,7 +12,9 @@ From `output/`:
 4. Spot-check row counts in Supabase.
 5. Restart `npm run dev` if needed.
 
-## Verify — USER PAUSE
+## STOP — REVIEW WITH USER
+
+Send this message to the user, then **stop**. Call **zero tools** — no `Read`, no `Bash`, no subagents, no opening of `steps/7/` — until they reply.
 
 > Recipes are live. Confirm:
 >
@@ -22,4 +24,4 @@ From `output/`:
 >
 > Approve before Phase 7.
 
-**Wait for explicit approval before moving to Phase 7.**
+Wait for explicit approval before Phase 7. "Looks good" / "yes" / "approved" / "proceed" all qualify; silence and vague replies do not. If they flag issues, fix in place and re-ask.
