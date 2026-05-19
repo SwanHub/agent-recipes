@@ -22,6 +22,6 @@ Send this message to the user, then **stop**. Call **zero tools** — no `Read`,
 > - `/recipes/<slug>` — file tree, thumbnail or placeholder, demo link if frontmatter has `demo url`, install modal.
 > - `/profile/swanhub` — recipes section + install badge.
 >
-> Approve before Phase 7.
+> Approve before step 7.
 
-Wait for explicit approval before Phase 7. "Looks good" / "yes" / "approved" / "proceed" all qualify; silence and vague replies do not. If they flag issues, fix in place and re-ask.
+Wait for explicit approval before step 7. "Looks good" / "yes" / "approved" / "proceed" all qualify; silence and vague replies do not. If they flag issues, fix in place and re-ask.

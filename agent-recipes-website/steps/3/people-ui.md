@@ -10,4 +10,4 @@ Components only.
 
 ## Verify
 
-- `cd output && npm run build` passes. Visual check happens at the P4 STOP — REVIEW gate.
+- `cd output && npm run build` passes. Visual check happens at the step 4 STOP — REVIEW gate.

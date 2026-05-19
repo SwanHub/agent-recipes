@@ -15,6 +15,6 @@ From `output/`:
 
 Send this message to the user, then **stop**. Call **zero tools** — no `Read`, no `Bash`, no subagents, no opening of `steps/5/` — until they reply.
 
-> People is live. Check `/profiles/all` (search + grid) and `/profile/swanhub` (avatar, bio, links). Recipes section comes in P6 — ignore for now. Layout and typography OK?
+> People is live. Check `/profiles/all` (search + grid) and `/profile/swanhub` (avatar, bio, links). Recipes section comes in step 6 — ignore for now. Layout and typography OK?
 
-Wait for explicit approval before Phase 5. "Looks good" / "yes" / "approved" / "proceed" all qualify; silence and vague replies do not. If they flag issues, fix in place and re-ask.
+Wait for explicit approval before step 5. "Looks good" / "yes" / "approved" / "proceed" all qualify; silence and vague replies do not. If they flag issues, fix in place and re-ask.

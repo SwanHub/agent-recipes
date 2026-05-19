@@ -4,7 +4,7 @@ Walk the user through prereqs interactively, then scaffold the Next.js 16 projec
 
 ## 1. Check prereqs
 
-The recipe-level welcome (in `RECIPE.md`) has already been sent. Continue directly into prereq checks, in order. Don't proceed past any failure — work it out with the user.
+Step 0 has already greeted the user. Continue directly into prereq checks, in order. Don't proceed past any failure — work it out with the user.
 
 1. **Node 20+** — verify, install if needed (includes `npm`).
 2. **Supabase CLI** — verify it's installed; install if needed (Homebrew on macOS, see [https://supabase.com/docs/guides/cli](https://supabase.com/docs/guides/cli) otherwise).

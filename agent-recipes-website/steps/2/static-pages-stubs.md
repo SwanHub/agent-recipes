@@ -1,6 +1,6 @@
 # Static stubs
 
-Placeholder routes that must exist before later phases.
+Placeholder routes that must exist before later steps.
 
 ## Do
 

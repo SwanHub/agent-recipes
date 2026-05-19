@@ -1,6 +1,6 @@
 # People persistence
 
-Schema + seed script for the `users` table. Not applied or run here — P4 ships it.
+Schema + seed script for the `users` table. Not applied or run here — step 4 ships it.
 
 ## Do
 
@@ -12,9 +12,9 @@ Schema + seed script for the `users` table. Not applied or run here — P4 ships
 - `USERNAMES` — start with **`SwanHub`** ([github.com/SwanHub](https://github.com/SwanHub)), the first seeded user; fetch GitHub profile, map into `users` (`slug` = username).
 - Truncate `users`, insert, print `seeded users: <n>`.
 
-P5 extends this script for recipes (discovered from [github.com/SwanHub/agent-recipes/tree/main](https://github.com/SwanHub/agent-recipes/tree/main)).
+Step 5 extends this script for recipes (discovered from [github.com/SwanHub/agent-recipes/tree/main](https://github.com/SwanHub/agent-recipes/tree/main)).
 
 ## Verify
 
 - Migration file exists with a 14-digit UTC timestamp prefix.
-- Seed script parses; `npm run supabase:seed` wired in `package.json` (from P1).
+- Seed script parses; `npm run supabase:seed` wired in `package.json` (from step 1).

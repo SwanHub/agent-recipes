@@ -11,7 +11,7 @@ Site shell every page shares: theme tokens, fonts, header, footer, brand mark, p
 5. `output/components/site-footer.tsx` — footer crediting Agent Recipes Website + repo link.
 6. `output/app/globals.css` — Tailwind v4 semantic color tokens (`background`, `foreground`, `muted`, `accent`, `border`, `footer-bg`, etc.) so components use utilities, not hard-coded hex.
 7. `output/app/layout.tsx` — Geist fonts, site metadata titled **Agent Recipes Website**, header + footer wrapping children.
-8. `output/app/page.tsx` — temporary home placeholder (replaced in P7).
+8. `output/app/page.tsx` — temporary home placeholder (replaced in step 7).
 
 ## Verify
 

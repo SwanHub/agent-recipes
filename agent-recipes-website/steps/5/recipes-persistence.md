@@ -1,6 +1,6 @@
 # Recipes persistence
 
-Migration + seed extension. Not applied or run here — P6 ships.
+Migration + seed extension. Not applied or run here — step 6 ships.
 
 ## Do
 
