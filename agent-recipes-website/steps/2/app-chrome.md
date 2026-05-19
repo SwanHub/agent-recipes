@@ -1,6 +1,6 @@
 # App chrome
 
-Site shell every page shares: theme tokens, fonts, header, footer, brand mark, placeholder home. Match the aesthetic in `RECIPE.md` (warm minimal canvas, Geist, single orange accent, dark mode).
+Site shell every page shares: theme tokens, fonts, header, footer, brand mark, placeholder home. Aesthetic: warm minimal canvas, Geist, single orange accent, dark mode. **Brand the app "Agent Recipes Website"** in metadata, header, and footer copy.
 
 ## Do
 

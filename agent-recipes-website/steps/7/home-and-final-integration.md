@@ -4,7 +4,7 @@ Landing page composes live people and recipes. Lead with what recipes make possi
 
 ## Do
 
-- Featured fetches + API routes: first N recipes by title (see `CONVENTIONS.md` — no hardcoded slug lists).
+- Featured fetches + API routes: derive featured recipes from live data — first N by title. **No hardcoded slug lists** in this file or the API route; the catalog is real.
 - Landing components: hero heading focused on running recipes in Cursor, section headings, join CTA pill.
 - Replace `output/app/page.tsx` — parallel fetch, sections:
   1. **Hero** — Agent Recipes Website pitch: discover recipes, see what they build, run them in Cursor.

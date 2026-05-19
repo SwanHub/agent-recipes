@@ -8,8 +8,11 @@ Migration + seed extension. Not applied or run here — P6 ships.
 
 **Seed** — extend `seed-catalog.ts`:
 
-- Discover recipe folders from [github.com/SwanHub/agent-recipes/tree/main](https://github.com/SwanHub/agent-recipes/tree/main) (top-level dirs with `RECIPE.md`).
-- For each folder: parse `RECIPE.md` frontmatter (`name`, `description`, optional `demo url`); resolve `assets/recipe-thumbnail.png` to a raw GitHub URL when the file exists.
+- Discover recipe folders from [github.com/SwanHub/agent-recipes/tree/main](https://github.com/SwanHub/agent-recipes/tree/main) (top-level dirs with `RECIPE.md`). This is the catalog source of truth.
+- For each folder, read the `RECIPE.md` frontmatter contract:
+  - **Required:** `name`, `description` (or equivalent summary fields).
+  - **Optional:** `demo url` — HTTPS link to a deployed build; persist as `demo_url` for cards/detail to surface.
+  - **Thumbnail:** if `assets/recipe-thumbnail.png` exists in the recipe repo, persist its GitHub raw URL as `thumbnail_url`; otherwise leave null and let UI fall back to a neutral placeholder.
 - `submitterUsername` defaults to `SwanHub` unless frontmatter specifies another author.
 - Full re-seed: truncate `recipes` → `users`, re-seed users then recipes, print both counts.
 

@@ -7,7 +7,7 @@ Components only.
 - Recipe preview card (thumbnail when `thumbnailUrl` set; optional external link when `demoUrl` set)
 - Searchable recipes catalog
 - `profile-recipes-section`
-- GitHub file-tree preview, markdown preview, detail header with **Use in Cursor** — see `CONVENTIONS.md` for CTA rules
+- GitHub file-tree preview, markdown preview, detail header with **Use in Cursor** — primary CTA on every recipe detail page. Opens a modal with a copyable install path/snippet; confirming the copy calls the install endpoint that increments the recipe's `install_count` in Supabase.
 
 ## Verify
 
