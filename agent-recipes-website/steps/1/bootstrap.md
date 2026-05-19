@@ -2,13 +2,9 @@
 
 Walk the user through prereqs interactively, then scaffold the Next.js 16 project at `output/` with all runtime deps Agent Recipes Website needs. **Assume a cold start** — verify each item; do not skip checks because the user might already be set up.
 
-## 1. Greet and check prereqs
+## 1. Check prereqs
 
-Open with a brief welcome:
-
-> We're going to build **Agent Recipes Website** — a minimal community site for creator profiles and agent recipes. This first step gets your machine ready and scaffolds the project. There are three checkpoints later (after People, after Recipes, after the landing page) where you'll visually confirm the site looks right before we move on.
-
-Then check, in order. Don't proceed past any failure — work it out with the user.
+The recipe-level welcome (in `RECIPE.md`) has already been sent. Continue directly into prereq checks, in order. Don't proceed past any failure — work it out with the user.
 
 1. **Node 20+** — verify, install if needed (includes `npm`).
 2. **Supabase CLI** — verify it's installed; install if needed (Homebrew on macOS, see [https://supabase.com/docs/guides/cli](https://supabase.com/docs/guides/cli) otherwise).
