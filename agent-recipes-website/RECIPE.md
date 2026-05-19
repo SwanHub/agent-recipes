@@ -41,6 +41,10 @@ Prefer **running commands yourself** in this environment over telling the user t
 
 If you must hand off, be specific: what exact command or UI action, what success looks like, and what you will resume with **immediately after** they confirm — without re-running unrelated later steps.
 
+### Isolated output 
+
+Everything you need to complete the recipe is in this repo. Do not scan adjacent repos for context.
+
 ## Project conventions
 
 - **App lives in `output/`** — all CLI commands (`npm`, `supabase`, `tsx`) run from there. When invoking from outside, prefix with `cd output && …`.
