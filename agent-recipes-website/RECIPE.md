@@ -43,7 +43,7 @@ Stay inside this recipe folder. No peeking at adjacent repos.
 
 Two steps fan out to parallel subagents. **You (orchestrator) must dispatch every subagent for the step in a single message.** Running these serially is a failed run, not a slow run.
 
-- **Step 2 — Shell** dispatches **three** Agent subagents in one message: one per file in `steps/2/`. Files write disjoint paths and cannot conflict.
+- **Step 2 — App foundations** dispatches **three** Agent subagents in one message: one per file in `steps/2/` (`app`, `chrome`, `helpers`). Files write disjoint paths; sibling cross-imports (e.g., `app/layout.tsx` → `components/chrome/*`, `components/chrome/site-footer.tsx` → `lib/constants.ts`) resolve at the fan-in build.
 - **Step 3 — Packs** dispatches **two** Agent subagents in one message: `pack-people.md` and `pack-recipes.md`. Each pack owns its `features/<pack>/*`, `components/<pack>/*`, `app/(<pack>)/*`, and migration.
 
 **Orchestrator duties (you, main thread):**
