@@ -1,8 +1,8 @@
 ---
-
 name: agent-recipes-website
 description: Community site for sharing Agent Recipes — Next.js + Supabase + Vercel + weekly newsletter capture.
 build_duration: 5-10mins
+---
 
 ### Stack
 
